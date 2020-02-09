@@ -156,15 +156,10 @@ class ApiResourceList(ApiAttributeMixin, ApiResource, Iterator):
 
     :returns: list -- list of API resources.
     """
-    if self.get('maxResults') is None:
-      self['maxResults'] = 1000
-      result = []
-      for x in self:
-        result.extend(x)
-      del self['maxResults']
-      return result
-    else:
-      return next(self)
+    result = []
+    for x in self:
+      result.extend(x)
+    return result
 
   def _GetList(self):
     """Helper function which actually makes API call.

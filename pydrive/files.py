@@ -61,15 +61,15 @@ class GoogleDriveFileList(ApiResourceList):
     :returns: list -- list of pydrive.files.GoogleDriveFile.
     """
     # Teamdrive support
-    self['corpus'] = 'DEFAULT'
-    self['supportsTeamDrives'] = True
-    self['includeTeamDriveItems'] = True
+    self['includeItemsFromAllDrives'] = True
+    self['supportsAllDrives'] = True
 
     self.metadata = self.auth.service.files().list(**dict(self)).execute(
       http=self.http)
 
+
     result = []
-    for file_metadata in self.metadata['items']:
+    for file_metadata in self.metadata['files']:
       tmp_file = GoogleDriveFile(
           auth=self.auth,
           metadata=file_metadata,
